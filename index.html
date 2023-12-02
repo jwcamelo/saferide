@@ -9,19 +9,20 @@
   <title>SafeRide Alert</title>
 </head>
 <div class="toolbar">
-  <div class="toolbar-title">SafeRide Alert</div>
+    <span class="toolbar-title">SafeRide Alert</span>
+    <img id="delete-icon" class="icon" src="img/trash.png" alt="trash icon">
 </div>
 
 <body>
   <div class="container">
     <p id="ultimaConsulta"></p>
-    <img id='refresh-icon' src="img/refresh.png" alt="refresh request">
-    <ul id="locationList"></ul>
+    <img class="icon" id='refresh-icon' src="img/refresh.png" alt="refresh request">
+    <ul id="tilesList">
+      <!-- As divs "tile" serão adicionadas aqui dinamicamente -->
+    </ul>
+  
   </div>
-  <ul id="tilesList">
-    <!-- As divs "tile" serão adicionadas aqui dinamicamente -->
-  </ul>
-
+ 
   <script src="script.js"></script>
 </body>
 

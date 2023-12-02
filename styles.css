@@ -51,14 +51,6 @@ ul {
   align-items: center;
 }
 
-.toolbar button {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-}
-
 .toolbar-title {
   font-size: 20px;
   font-weight: bold;
@@ -68,18 +60,14 @@ ul {
   padding: 20px;
 }
 
-#refresh-icon {
+.icon {
   max-width: 40px;
+  max-height: 40px;
 }
 
 /* Estilo para dispositivos menores */
 @media only screen and (max-width: 768px) {
   .toolbar {
-    flex-direction: column;
     text-align: center;
-  }
-
-  .toolbar button {
-    margin: 5px 0;
   }
 }

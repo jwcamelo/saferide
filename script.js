@@ -2,12 +2,13 @@ let ultimaConsulta;
 
 document.addEventListener('DOMContentLoaded', getData);
 document.querySelector('#refresh-icon').addEventListener('click', getData);
+document.querySelector('#delete-icon').addEventListener('click',clearData);
 
 function getData() {
   const url = 'https://api.tago.io/data';
   const headers = {
     'Content-Type': 'application/json',
-    'Device-Token': 'd2bce0fb-b147-4abe-8f86-3e33bf23aaf9'
+    'Device-Token': 'efa731be-38a4-4910-97e1-c8d525a40ba7'
   };
   fetch(url, {
     method: 'GET',
@@ -22,31 +23,57 @@ function getData() {
     .then(data => {
       // Manipular os dados aqui
       console.log('Dados recebidos:', data.result);
-      const tilesList = document.getElementById('tilesList');
+      const tilesList = document.querySelector('#tilesList');
       tilesList.innerHTML = ""
       ultimaConsulta = new Date();
 
       document.querySelector('#ultimaConsulta').innerHTML = `Última consulta: ${formatDate(ultimaConsulta)}`;
 
-      for (data of data.result) {
-        const acidente = data.value
-        if (acidente) {
-          const localizacao = `${data.location.coordinates[0]}, ${[data.location.coordinates[1]]}`;
-          const date = `${formatDate(data.time)}`
+      if(data.result.length > 0){
+        for (data of data.result) {
 
-
-          const tileDiv = createTile(acidente, localizacao, date);
-
-          const link = document.createElement('a');
-          link.href = `https://www.google.com/maps/search/?api=1&query=${localizacao}`;
-          link.target = '_blank';
-          link.appendChild(tileDiv);
-
-          tilesList.appendChild(link);
+          const acidente = data.value
+          console.log(data)
+          if (acidente) {
+            const localizacao = `${data.location.coordinates[0]}, ${[data.location.coordinates[1]]}`;
+            const date = `${formatDate(data.time)}`
+  
+  
+            const tileDiv = createTile(acidente, localizacao, date);
+  
+            const link = document.createElement('a');
+            link.href = `https://www.google.com/maps/search/?api=1&query=${localizacao}`;
+            link.target = '_blank';
+            link.appendChild(tileDiv);
+  
+            tilesList.appendChild(link);
+          }
         }
+      }else{
+        tilesList.innerHTML = 'Não existem registros de acidente.'
       }
+      
     })
 }
+
+function clearData(){
+  const url = 'https://api.tago.io/data?variables=acidente'
+
+  const headers = {
+    'Device-Token': 'efa731be-38a4-4910-97e1-c8d525a40ba7'
+  };
+  fetch(url, {
+    method: 'DELETE',
+    headers: headers
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Erro na requisição: ${response.status}`);        
+      }
+      getData();
+      return response.json();
+    })
+};
 
 function formatDate(dateTimeString) {
   const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' };
