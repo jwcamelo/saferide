@@ -1,6 +1,6 @@
 {
   "name": "SafeRide Alert",
-  "short_name": "SaferRide",
+  "short_name": "SafeRide",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#fdfdfd",
