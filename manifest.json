@@ -1,0 +1,15 @@
+{
+  "name": "SafeRide Alert",
+  "short_name": "SaferRide",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#fdfdfd",
+  "theme_color": "#db4938",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./img/saferide.png",
+      "type": "image/png", "sizes": "500x500"
+    }
+  ]
+}
