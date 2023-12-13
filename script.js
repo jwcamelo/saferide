@@ -2,7 +2,7 @@ let ultimaConsulta;
 
 document.addEventListener('DOMContentLoaded', getData);
 document.querySelector('#refresh-icon').addEventListener('click', getData);
-document.querySelector('#delete-icon').addEventListener('click',clearData);
+document.querySelector('#delete-icon').addEventListener('click', clearData);
 
 function getData() {
   const url = 'https://api.tago.io/data';
@@ -29,34 +29,34 @@ function getData() {
 
       document.querySelector('#ultimaConsulta').innerHTML = `Última consulta: ${formatDate(ultimaConsulta)}`;
 
-      if(data.result.length > 0){
+      if (data.result.length > 0) {
         for (data of data.result) {
 
           const acidente = data.value
           console.log(data)
           if (acidente) {
-            const localizacao = `${data.location.coordinates[0]}, ${[data.location.coordinates[1]]}`;
+            const localizacao = `${data.location.coordinates[1]}, ${[data.location.coordinates[0]]}`;
             const date = `${formatDate(data.time)}`
-  
-  
+
+
             const tileDiv = createTile(acidente, localizacao, date);
-  
+
             const link = document.createElement('a');
             link.href = `https://www.google.com/maps/search/?api=1&query=${localizacao}`;
             link.target = '_blank';
             link.appendChild(tileDiv);
-  
+
             tilesList.appendChild(link);
           }
         }
-      }else{
+      } else {
         tilesList.innerHTML = 'Não existem registros de acidente.'
       }
-      
+
     })
 }
 
-function clearData(){
+function clearData() {
   const url = 'https://api.tago.io/data?variables=acidente'
 
   const headers = {
@@ -68,7 +68,7 @@ function clearData(){
   })
     .then(response => {
       if (!response.ok) {
-        throw new Error(`Erro na requisição: ${response.status}`);        
+        throw new Error(`Erro na requisição: ${response.status}`);
       }
       getData();
       return response.json();
@@ -100,7 +100,7 @@ function createTile(acidente, localizacao, data) {
 };
 
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", function() {
+  window.addEventListener("load", function () {
     navigator.serviceWorker
       .register("/serviceWorker.js")
       .then(res => console.log("service worker registered"))
